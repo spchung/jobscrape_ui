@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoIosHome, IoIosSettings, IoIosNotifications } from 'react-icons/io';
+import { IoIosHome, IoIosSearch, IoIosCloudUpload } from 'react-icons/io';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,15 +21,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
             </Link>
           </li>
           <li className="flex items-center py-2 px-4 hover:bg-gray-800 cursor-pointer">
-            <IoIosSettings className="mr-2" />
-            <Link to="/settings">
-              <span className="inline">Settings</span>
+            <IoIosSearch className="mr-2" />
+            <Link to="/search">
+              <span className="inline">Search</span>
             </Link>
           </li>
           <li className="flex items-center py-2 px-4 hover:bg-gray-800 cursor-pointer">
-            <IoIosNotifications className="mr-2" />
-            <Link to="/notifications">
-              <span className="inline">Notifications</span>
+            <IoIosCloudUpload className="mr-2" />
+            <Link to="/upload">
+              <span className="inline">Upload</span>
             </Link>
           </li>
         </ul>

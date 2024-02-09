@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoIosMenu, IoIosHome, IoIosSettings, IoIosNotifications } from 'react-icons/io';
+import { IoIosMenu, IoIosHome, IoIosSearch, IoIosCloudUpload } from 'react-icons/io';
 
 interface DropdownMenuProps {
   isOpen: boolean;
@@ -30,15 +30,15 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ isOpen, setIsOpen }) => {
             </Link>
           </li>
           <li>
-            <Link to="/settings" onClick={() => handleMenuClose()} className="group flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <IoIosSettings className="mr-2" />
-              Settings
+            <Link to="/search" onClick={() => handleMenuClose()} className="group flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <IoIosSearch className="mr-2" />
+              Search
             </Link>
           </li>
           <li>
-            <Link to="/notifications" onClick={() => handleMenuClose()} className="group flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              <IoIosNotifications className="mr-2" />
-              Notifications
+            <Link to="/upload" onClick={() => handleMenuClose()} className="group flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <IoIosCloudUpload className="mr-2" />
+              Upload
             </Link>
           </li>
         </ul>

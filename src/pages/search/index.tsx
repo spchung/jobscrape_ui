@@ -1,38 +1,41 @@
-import React from 'react';
-import SearchBar from '../../components/search/searchbar';
+import React, { useEffect, useState } from 'react';
+import ForwardedSearchForm from '../../components/search/search-form';
 import { Job } from '../../shared/models';
-import { useState } from 'react';
+import JobCard from '../../components/ui/job-card';
+import useRandomJobs from '../..//hooks/use-fetch-random-jobs';
+import Spinner from '../../components/loading/full-width-spinner';
 
-const Search: React.FC = () => {  
-  const [jobResult, setJobResult] = useState<Job[]>([]);
-  const handleSubmit = async (title: string, description: string) => {
-    const response = await fetch('http://localhost:8080/v1/search/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, description }),
-        });
-    const data = await response.json();
-    setJobResult(data);
-  };
+const SearchPage: React.FC = () => {
+  const randomJobs = useRandomJobs(); // Custom hook to fetch random jobs
+  const [jobs, setJobs] = useState<Job[]>(randomJobs); // State to store list of jobs
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setJobs(randomJobs);
+    setIsLoading(randomJobs === undefined || randomJobs.length === 0);
+  }, [randomJobs]);
 
   return (
-    <>
-      <h1 className="text-3xl font-bold text-red-200 underline">
-        Vector Search
-      </h1>
-      <div>
-        <button className="bg-primary text-primary-foreground">Primary Button</button>
-      </div>
-      <div>
-        <SearchBar onSubmit={handleSubmit} />
-      </div>
-      <pre>
-        {jobResult.map( (job) => job.title+" "+job.url+"\n")}
-      </pre>
-    </>
+    <div className="min-h-fit lg:min-h-full flex flex-col lg:flex-row justify-between bg-gray-200">
+      <section className="lg:w-1/2 p-8">
+        <h2 className="text-2xl font-bold mb-4">Find Your Dream Job</h2>
+        <ForwardedSearchForm setJobResult={setJobs} setIsLoading={setIsLoading}/>
+      </section>
+
+      {/* List of Jobs Section */}
+      <section className="lg:w-1/2 bg-gray-200 p-8 relative">
+        <h2 className="text-2xl font-bold mb-4">Jobs</h2>
+          { isLoading && <Spinner text={'Loading jobs...'}/> }
+          <ul>
+            {jobs.map((job, index) => (
+              <li key={index} className='py-2'>
+                <JobCard {...job} />
+              </li>
+            ))}
+          </ul>
+      </section>
+    </div>
   );
 };
 
-export default Search;
+export default SearchPage;

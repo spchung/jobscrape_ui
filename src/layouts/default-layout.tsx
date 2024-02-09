@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import Sidebar from '../components/sidebar/sidebar';
-import DropdownMenu from '../components/menu/dropdown-menu';
+import DropdownMenu from '../components/menu/dropdown-nav-menu';
 
 interface DefaultLayoutProps {
   children: ReactNode;
